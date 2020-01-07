@@ -13,6 +13,7 @@ security:
                 property: username
 
     firewalls:
+    
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
@@ -27,6 +28,7 @@ security:
 
         register:
             pattern:  ^/register
+            
             stateless: true
             anonymous: true
 
