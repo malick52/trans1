@@ -3,8 +3,8 @@ security:
         App\Entity\User:
             algorithm: bcrypt
 
-    role_hierarchy:    
-        ROLE_SUPERADMIN: [ROLE_ADMIN,ROLE_CAISSIER]
+    #role_hierarchy:    
+       # ROLE_SUPERADMIN: [ROLE_ADMIN,ROLE_CAISSIER]
             
     providers:
         entity_provider:

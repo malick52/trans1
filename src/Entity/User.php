@@ -2,13 +2,17 @@
 
 namespace App\Entity;
 
+
+use App\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
 /**
  * @ApiResource()
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * 
  */
 class User implements UserInterface
 {
@@ -47,8 +51,11 @@ class User implements UserInterface
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Role", inversedBy="users")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $role;
+
+
 
     public function getId(): ?int
     {
@@ -79,7 +86,7 @@ class User implements UserInterface
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+      
 
         return array_unique($roles);
     }
@@ -147,15 +154,39 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getRole(): ?Role
-    {
-        return $this->role;
-    }
+ 
+    
 
-    public function setRole(?Role $role): self
-    {
-        $this->role = $role;
+        public function isAccountNonExpired()
+        {
+            return true;
+        }
+    
+        public function isAccountNonLocked()
+        {
+            return true;
+        }
+    
+        public function isCredentialsNonExpired()
+        {
+            return true;
+        }
+    
+        public function isEnabled()
+        {
+            return $this->isActive;
+        }
 
-        return $this;
-    }
+        public function getRole(): ?Role
+        {
+            return $this->role;
+        }
+
+        public function setRole(?Role $role): self
+        {
+            $this->role = $role;
+
+            return $this;
+        }
+    
 }
